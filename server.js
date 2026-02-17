@@ -1,73 +1,4 @@
-// const express = require("express");
-// const bodyParser = require("body-parser");
-// const cors = require("cors");
-// const mysql = require("mysql2");
 
-// const app = express();
-// const PORT = process.env.PORT || 3000;
-
-// app.use(cors());
-// app.use(bodyParser.json());
-// app.use(express.static("PUB")); // сюда положи index.html и style.css
-
-// // да
-
-// const pool = mysql.createPool({
-//     host: process.env.copen_host,// copen host
-//     user: process.env.copen_user,// user
-//     password: process.env.copen_pass,//password
-//     database: process.env.copen_name, //database name
-//     waitForConnections: true,
-//     connectionLimit: 10
-// });
-
-
-// db.connect(err => {
-//     if(err) console.log(err);
-//     else console.log("MySQL подключен");
-// });
-
-// // API: сохранить бронь
-// app.post("/book", (req, res) => {
-//     const { table, date, from, to, name, surname, phone, comment } = req.body;
-
-//     const now = new Date();
-//     const bookingDateTime = new Date(`${date}T${from}:00`);
-//     if(bookingDateTime < now){
-//         return res.json({success:false,message:"Это время уже недоступно"});
-//     }
-
-//     // проверка занятости
-//     const checkSql = `
-//       SELECT * FROM bookings 
-//       WHERE tableNumber = ? AND date = ? AND fromTime < ? AND toTime > ?
-//     `;
-//     db.query(checkSql, [table, date, to, from], (err, results) => {
-//         if(err) return res.json({success:false,message:err.message});
-//         if(results.length>0) return res.json({success:false,message:"Этот столик уже забронирован"});
-
-//         const insertSql = `
-//           INSERT INTO bookings (tableNumber, date, fromTime, toTime, name, surname, phone, comment)
-//           VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-//         `;
-//         db.query(insertSql, [table,date,from,to,name,surname,phone,comment], (err2)=>{
-//             if(err2) return res.json({success:false,message:err2.message});
-//             res.json({success:true});
-//         });
-//     });
-// });
-
-// // API: получить все брони
-// app.get("/bookings", (req,res)=>{
-//     db.query("SELECT * FROM bookings", (err, results)=>{
-//         if(err) return res.json([]);
-//         res.json(results);
-//     });
-// });
-
-// app.listen(PORT, ()=>console.log(`Сервер запущен http://localhost:${PORT}`));
-
-// server.js
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -83,14 +14,23 @@ app.use(express.static("PUB")); // сюда положи index.html, style.css �
 
 // Подключение к MySQL через пул
 const pool = mysql.createPool({
-  host: process.env.MYSQLHOST || process.env.MYSQL_HOST,
-  user: process.env.MYSQLUSER || process.env.MYSQL_USER,
-  password: process.env.MYSQLPASSWORD || process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQLDATABASE || process.env.MYSQL_DATABASE,
-  port: process.env.MYSQLPORT || process.env.MYSQL_PORT,
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQLDATABASE,
+  port: process.env.MYSQLPORT,
   waitForConnections: true,
   connectionLimit: 10
 });
+if (err) {
+  console.error("Ошибка при проверке брони:", err);
+  return res.json({ success: false, message: err.message });
+}
+if (err2) {
+  console.error("Ошибка при вставке брони:", err2);
+  return res.json({ success: false, message: err2.message });
+}
+
 
 
 // -----------------------
