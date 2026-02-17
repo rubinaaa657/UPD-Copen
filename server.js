@@ -77,7 +77,6 @@ require("dotenv").config(); // для переменных окружения Ra
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middlewares
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("PUB")); // сюда положи index.html, style.css и т.д.
