@@ -22,14 +22,7 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10
 });
-if (err) {
-  console.error("Ошибка при проверке брони:", err);
-  return res.json({ success: false, message: err.message });
-}
-if (err2) {
-  console.error("Ошибка при вставке брони:", err2);
-  return res.json({ success: false, message: err2.message });
-}
+
 
 
 
