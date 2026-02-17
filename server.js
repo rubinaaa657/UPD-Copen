@@ -55,9 +55,10 @@ app.post("/book", (req, res) => {
   }
 
   const checkSql = `
-    SELECT * FROM bookings 
-    WHERE tableNumber = ? AND date = ? AND fromTime < ? AND toTime > ?
-  `;
+  SELECT * FROM bookings 
+  WHERE tableNumber = ? AND date_1 = ? AND fromTime < ? AND toTime > ?
+`;
+
 
   pool.query(checkSql, [table, date, to, from], (err, results) => {
     if (err) {
@@ -68,7 +69,7 @@ app.post("/book", (req, res) => {
       return res.json({ success: false, message: "Этот столик уже забронирован" });
 
     const insertSql = `
-      INSERT INTO bookings (tableNumber, date, fromTime, toTime, name, surname, phone, comment)
+      INSERT INTO bookings (tableNumber, date_1, fromTime, toTime, name_1, surname, phone, comment_1)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
