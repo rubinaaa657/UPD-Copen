@@ -83,13 +83,15 @@ app.use(express.static("PUB")); // сюда положи index.html, style.css �
 
 // Подключение к MySQL через пул
 const pool = mysql.createPool({
-  host: process.env.copen_host,
-  user: process.env.copen_user,
-  password: process.env.copen_pass,
-  database: process.env.copen_name,
+  host: process.env.MYSQLHOST || process.env.MYSQL_HOST,
+  user: process.env.MYSQLUSER || process.env.MYSQL_USER,
+  password: process.env.MYSQLPASSWORD || process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQLDATABASE || process.env.MYSQL_DATABASE,
+  port: process.env.MYSQLPORT || process.env.MYSQL_PORT,
   waitForConnections: true,
   connectionLimit: 10
 });
+
 
 // -----------------------
 // API: Получить все брони
