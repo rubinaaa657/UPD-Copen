@@ -22,6 +22,14 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10
 });
+pool.getConnection((err, connection) => {
+  if (err) {
+    console.error("Ошибка подключения к MySQL:", err);
+  } else {
+    console.log("MySQL подключен!");
+    connection.release(); // освобождаем соединение обратно в пул
+  }
+});
 
 
 
