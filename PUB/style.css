@@ -130,7 +130,13 @@ transition: 0.3s;
   background: rgba(255, 255, 255, 0.2);
 }
 
+.getbtn{
+    border: 2px solid black;
+    border-radius: 10px;
+    color: black;
+    padding: 10px 20px;
 
+}
 .book-btn{
     background: none;
     border: 2px solid white;
@@ -150,7 +156,45 @@ transition: 0.3s;
     color: white;
     text-decoration: none;
 }
+.book-btn2{
+    background: none;
+    border: 2px solid black;
+    border-radius: 10px;
+    color: black;
+    padding: 10px 20px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
+.book-btn2:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.book-btn2 a {
+    color: white;
+    text-decoration: none;
+}
+
+.time-btn{
+    background: none;
+    border: 2px solid black;
+    border-radius: 10px;
+    color: black;
+    padding: 10px 20px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.time-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.time-btn a {
+    color: white;
+    text-decoration: none;
+}
 .close-btn {
   display: flex;
   position: absolute;
