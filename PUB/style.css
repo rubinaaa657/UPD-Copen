@@ -135,6 +135,7 @@ transition: 0.3s;
     border-radius: 10px;
     color: black;
     padding: 10px 20px;
+  
 
 }
 .book-btn{
@@ -220,6 +221,7 @@ transition: 0.3s;
   position:fixed;
   top:50%;
   left:50%;
+
   transform:translate(-50%,-50%);
   z-index: 101;
   background:#fff;
@@ -504,4 +506,28 @@ transition: 0.3s;
   font-size: 18px;
   text-align: left;
   
+}
+
+
+#confirmModal {
+  display: none; 
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  z-index: 1000;    
+  background: white;
+  padding: 30px 50px; 
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
+  min-width: 280px;
+  text-align: center;
+}
+
+#confirmText {
+  color: black;
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0 0 15px 0;
+  font-family: 'Gill Sans', sans-serif;
 }

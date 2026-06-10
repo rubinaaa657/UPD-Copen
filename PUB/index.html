@@ -29,11 +29,13 @@
 
 <div class="modals">
   <div id="modal" class="modal">
+    <h6 style="position: absolute; right: 20px; top: -10px">Закрыть окно ESC</h6>
     <h2 class="getbtn">ЗАЯВКА НА БРОНИРОВАНИЕ</h2>
     <h6 style="color: black;">Добро пожаловать в форму бронирования. <br>
   Пожалуйста, выберите столик и удобное для вас время.<br>
-  С нетерпением ждём встречи с вами в нашем ресторане!</h6>
-  <br>
+  С нетерпением ждём встречи с вами в нашем ресторане!</h6> 
+  <h5>Для переключения между датами используйте клавиши-стрелки</h5>
+  
   
   
   
@@ -41,8 +43,8 @@
   <div id="daySelector" class="day-selector"></div>
   
   <script>
-  const daySelector = document.getElementById("daySelector");
-  const schedule1 = {
+  const daySelector=document.getElementById("daySelector");
+  const schedule1={
     0: { from: "12:00", to: "23:00" },
     1: { from: "12:00", to: "23:00" },
     2: { from: "12:00", to: "23:00" },
@@ -53,7 +55,7 @@
   };
   
   function timeToMinutes(time) {
-    const [h, m] = time.split(":").map(Number);
+    const [h, m]=time.split(":").map(Number);
     return h * 60 + m;
   }
   
@@ -63,20 +65,20 @@
   
   
   function generateTimeSlotsForDate(dateObj) {
-    const dayIndex = dateObj.getDay();
-    const { from, to } = schedule[dayIndex];
-    const slots = [];
-    let [startH, startM] = from.split(":").map(Number);
-    let [endH, endM] = to.split(":").map(Number);
-    let startTime = startH*60 + startM;
-    const endTime = endH*60 + endM;
-    const duration = 90;
+    const dayIndex=dateObj.getDay();
+    const { from, to }=schedule[dayIndex];
+    const slots=[];
+    let [startH, startM]=from.split(":").map(Number);
+    let [endH, endM]=to.split(":").map(Number);
+    let startTime=startH*60 + startM;
+    const endTime=endH*60 + endM;
+    const duration=90;
   
     while(startTime + duration <= endTime){
-      const slotStartH = Math.floor(startTime/60);
-      const slotStartM = startTime%60;
-      const slotEndH = Math.floor((startTime+duration)/60);
-      const slotEndM = (startTime+duration)%60;
+      const slotStartH=Math.floor(startTime/60);
+      const slotStartM=startTime%60;
+      const slotEndH=Math.floor((startTime+duration)/60);
+      const slotEndM=(startTime+duration)%60;
       slots.push(`${slotStartH.toString().padStart(2,"0")}:${slotStartM.toString().padStart(2,"0")}-${slotEndH.toString().padStart(2,"0")}:${slotEndM.toString().padStart(2,"0")}`);
       startTime += duration;
     }
@@ -85,39 +87,39 @@
   
   
   function generateDays() {
-    const days = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
-    const today = new Date();
-    daySelector.innerHTML = "";
+    const days=["SUN","MON","TUE","WED","THU","FRI","SAT"];
+    const today=new Date();
+    daySelector.innerHTML="";
   
     for(let i=0; i<7; i++){
-      const date = new Date();
+      const date=new Date();
       date.setDate(today.getDate() + i);
-      const dayAbbr = days[date.getDay()];
-      const dayNumber = date.getDate();
+      const dayAbbr=days[date.getDay()];
+      const dayNumber=date.getDate();
   
-      const dayItem = document.createElement("div");
-      dayItem.className = "day-item";
-      dayItem.dataset.date = date.toISOString().slice(0,10);
-      dayItem.dataset.dayIndex = date.getDay();
+      const dayItem=document.createElement("div");
+      dayItem.className="day-item";
+      dayItem.dataset.date=date.toISOString().slice(0,10);
+      dayItem.dataset.dayIndex=date.getDay();
   
       if(i === 0){
-        const label = document.createElement("span");
-        label.className = "today-label";
-        label.textContent = "сегодня";
+        const label=document.createElement("span");
+        label.className="today-label";
+        label.textContent="сегодня";
         dayItem.appendChild(label);
       } else {
         dayItem.appendChild(document.createElement("span"));
       }
   
-      const text = document.createElement("span");
-      text.textContent = `${dayAbbr}${dayNumber}`;
+      const text=document.createElement("span");
+      text.textContent=`${dayAbbr}${dayNumber}`;
       dayItem.appendChild(text);
   
       daySelector.appendChild(dayItem);
   
       if(i === 0) dayItem.classList.add("selected");
   
-      dayItem.onclick = () => {
+      dayItem.onclick=() => {
         document.querySelectorAll(".day-item").forEach(d => d.classList.remove("selected"));
         dayItem.classList.add("selected");
       };
@@ -217,29 +219,29 @@
 
 
 <script>
-const openBtn = document.getElementById('book');
-const modalbook = document.getElementById('modal');
-const overlay = document.getElementById('overlay');
-const infoModal = document.getElementById("infoModal");
-const infocloseBtn = infoModal.querySelector(".close");
-const infoText = document.getElementById("tableInfoText");
+const openBtn=document.getElementById('book');
+const modalbook=document.getElementById('modal');
+const overlay=document.getElementById('overlay');
+const infoModal=document.getElementById("infoModal");
+const infocloseBtn=infoModal.querySelector(".close");
+const infoText=document.getElementById("tableInfoText");
 
-const bookingModal = document.getElementById("bookingModal");
-const bookingClose = document.getElementById("bookingClose");
-const bookingForm = document.getElementById("bookingForm");
-const confirmClose = document.getElementById("confirmClose");
+const bookingModal=document.getElementById("bookingModal");
+const bookingClose=document.getElementById("bookingClose");
+const bookingForm=document.getElementById("bookingForm");
+const confirmClose=document.getElementById("confirmClose");
 
-openBtn.onclick = () => {
-  modalbook.style.display = 'block';
-  overlay.style.display = 'block';
+openBtn.onclick=() => {
+  modalbook.style.display='block';
+  overlay.style.display='block';
 }
 
-overlay.onclick = () => {
-  modalbook.style.display = 'none';
-  overlay.style.display = 'none';
+overlay.onclick=() => {
+  modalbook.style.display='none';
+  overlay.style.display='none';
 }
 
-const schedule = {
+const schedule={
   0: { from: "12:00", to: "23:00" }, //sun
   1: { from: "12:00", to: "23:00" },
   2: { from: "12:00", to: "23:00" },
@@ -250,60 +252,57 @@ const schedule = {
 };
 
 function getTodaySchedule() { return schedule[new Date().getDay()]; }
-function timeToMinutes(time) { const [h,m] = time.split(":").map(Number); return h*60+m; }
+function timeToMinutes(time) { const [h,m]=time.split(":").map(Number); return h*60+m; }
 
 
 function generateTimeSlots(){
-  const { from, to } = getTodaySchedule();
-  const slots = [];
-  let [startH, startM] = from.split(":").map(Number);
-  let [endH, endM] = to.split(":").map(Number);
-  let startTime = startH*60 + startM;
-  const endTime = endH*60 + endM;
-  const duration = 90;
+  const { from, to }=getTodaySchedule();
+  const slots=[];
+  let [startH, startM]=from.split(":").map(Number);
+  let [endH, endM]=to.split(":").map(Number);
+  let startTime=startH*60 + startM;
+  const endTime=endH*60 + endM;
+  const duration=90;
   while(startTime + duration <= endTime){
-    const slotStartH = Math.floor(startTime/60);
-    const slotStartM = startTime%60;
-    const slotEndH = Math.floor((startTime+duration)/60);
-    const slotEndM = (startTime+duration)%60;
+    const slotStartH=Math.floor(startTime/60);
+    const slotStartM=startTime%60;
+    const slotEndH=Math.floor((startTime+duration)/60);
+    const slotEndM=(startTime+duration)%60;
     slots.push(`${slotStartH.toString().padStart(2,"0")}:${slotStartM.toString().padStart(2,"0")}-${slotEndH.toString().padStart(2,"0")}:${slotEndM.toString().padStart(2,"0")}`);
     startTime += duration;
   }
   return slots;
 }
 
-// Проверка занятости слота
 function isSlotBusy(slotFrom, slotTo, table, date) {
-  const tableStr = String(table);
-  const busySlots = serverData.busySlots?.[date]?.[tableStr];
+  const tableStr=String(table);
+  const busySlots=serverData.busySlots?.[date]?.[tableStr];
   if (!busySlots) return false;
 
-  const slotStart = timeToMinutes(slotFrom);
-  const slotEnd = timeToMinutes(slotTo);
+  const slotStart=timeToMinutes(slotFrom);
+  const slotEnd=timeToMinutes(slotTo);
 
   return busySlots.some(b => {
-    const busyStart = timeToMinutes(b.from);
-    const busyEnd = timeToMinutes(b.to);
+    const busyStart=timeToMinutes(b.from);
+    const busyEnd=timeToMinutes(b.to);
     return slotStart < busyEnd && slotEnd > busyStart;
   });
 }
 
-// Открытие модалки столика
 function openTableModal(table) {
-  const selectedDate = document.querySelector(".day-item.selected").dataset.date;
-  const slots = generateTimeSlots();
-  const now = new Date();
+  const selectedDate=document.querySelector(".day-item.selected").dataset.date;
+  const slots=generateTimeSlots();
+  const now=new Date();
 
-  let html = `<h3>Столик ${table}</h3>`;
-  let availableCount = 0;
+  let html=`<h3>Столик ${table}</h3>`;
+  let availableCount=0;
 
   slots.forEach(time => {
-    const [from, to] = time.split("-");
+    const [from, to]=time.split("-");
 
-    // Пропускаем прошлые слоты для сегодня
     if (selectedDate === now.toISOString().slice(0,10)) {
-      const [h,m] = from.split(":");
-      const slotTime = new Date();
+      const [h,m]=from.split(":");
+      const slotTime=new Date();
       slotTime.setHours(h, m, 0, 0);
       if (slotTime <= now) return;
     }
@@ -318,18 +317,18 @@ function openTableModal(table) {
     html += "<p>Все столики забронированы</p>";
   }
 
-  infoText.innerHTML = html;
-  infoModal.style.display = "block";
+  infoText.innerHTML=html;
+  infoModal.style.display="block";
 
   document.querySelectorAll(".time-btn").forEach(btn => {
-    btn.onclick = () => {
-      overlay.dataset.table = btn.dataset.table;
-      overlay.dataset.from = btn.dataset.from;
-      overlay.dataset.to = btn.dataset.to;
+    btn.onclick=() => {
+      overlay.dataset.table=btn.dataset.table;
+      overlay.dataset.from=btn.dataset.from;
+      overlay.dataset.to=btn.dataset.to;
 
-      infoModal.style.display = "none";
-      overlay.style.display = "block";
-      bookingModal.style.display = "block";
+      infoModal.style.display="none";
+      overlay.style.display="block";
+      bookingModal.style.display="block";
     };
   });
 }
@@ -342,96 +341,75 @@ document.querySelectorAll(".tables-row, .tables-row-top, .duo, .four-table img")
 
 
 
-infocloseBtn.onclick = () => infoModal.style.display = "none";
-bookingClose.onclick = () => bookingModal.style.display = "none";
-overlay.style.pointerEvents = "auto";
-overlay.style.display = "none";
-confirmClose.onclick = () => confirmModal.style.display = "none";
+infocloseBtn.onclick=() => infoModal.style.display="none";
+bookingClose.onclick=() => bookingModal.style.display="none";
+overlay.style.pointerEvents="auto";
+overlay.style.display="none";
+confirmClose.onclick=() => confirmModal.style.display="none";
 window.addEventListener("click", e => {
-  if(e.target === infoModal) infoModal.style.display = "none";
-  if(e.target === bookingModal) bookingModal.style.display = "none";
-  if(e.target === confirmModal) confirmModal.style.display = "none";
-  overlay.style.pointerEvents = "none";
+  if(e.target === infoModal) infoModal.style.display="none";
+  if(e.target === bookingModal) bookingModal.style.display="none";
+  if(e.target === confirmModal) confirmModal.style.display="none";
+  overlay.style.pointerEvents="none";
 });
 
 document.querySelectorAll(".tables-row, .tables-row-top, .duo, .four-table img")
   .forEach(img => img.addEventListener("click", () => openTableModal(img.dataset.table)));
 
 
+// bookingForm.onsubmit=function (e) {
+//   e.preventDefault();
+
+//   const table=overlay.dataset.table;
+//   const from=overlay.dataset.from;
+//   const to=overlay.dataset.to;
+//   const date=document.querySelector(".day-item.selected").dataset.date;
+
+//   const formData={
+//     table,
+//     from,
+//     to,
+//     date,
+//     name: this.name.value,
+//     surname: this.surname.value,
+//     phone: this.phone.value,
+//     comment: this.comment.value
+//   };
+
+//   submitBooking(formData);
+// };
+
+// Обработчик отправки формы бронирования
 bookingForm.onsubmit = function (e) {
-  e.preventDefault();
+  e.preventDefault(); // Отменяем перезагрузку страницы
 
-  const table = overlay.dataset.table;
-  const from = overlay.dataset.from;
-  const to = overlay.dataset.to;
-  const date = document.querySelector(".day-item.selected").dataset.date;
+  // 1. Скрываем окно ввода данных и фоновый оверлей
+  bookingModal.style.display = "none";
+  overlay.style.display = "none";
 
-  const formData = {
-    table,
-    from,
-    to,
-    date,
-    name: this.name.value,
-    surname: this.surname.value,
-    phone: this.phone.value,
-    comment: this.comment.value
-  };
+  // 2. Устанавливаем текст и показываем модалку подтверждения
+  confirmText.textContent = "Форма отправлена";
+  confirmModal.style.display = "block";
 
-  submitBooking(formData);
+  // 3. Сбрасываем введенные пользователем данные в форме
+  this.reset();
 };
 
-function submitBooking(data) {
-  console.log("Отправка данных:", data);
-
-  fetch("/book", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
-  })
-  .then(res => res.json())
-  .then(response => {
-    console.log("Ответ сервера:", response);
-
-      if (response.success) {
-      // 🔹 Обновляем serverData локально
-      serverData.busySlots[data.date] = serverData.busySlots[data.date] || {};
-      serverData.busySlots[data.date][String(data.table)] = serverData.busySlots[data.date][String(data.table)] || [];
-      serverData.busySlots[data.date][String(data.table)].push({
-        from: data.from,
-        to: data.to
-      });
-      bookingModal.style.display = "none";
-      overlay.style.display = "none";
-      confirmText.textContent = `Столик ${data.table} забронирован`;
-      confirmModal.style.display = "block";
-      openTableModal(data.table);
 
 
-    } else {
-      alert("Ошибка бронирования: " + (response.message || "неизвестная ошибка"));
-    }
-  })
-  .catch(err => {
-    console.error("Fetch error:", err);
-    alert("Ошибка соединения с сервером. Попробуйте снова.");
-  });
-}
-
-
-// Загрузка занятых столиков
-let serverData = { busySlots: {} };
+let serverData={ busySlots: {} };
 
 fetch("/bookings")
   .then(res => res.json())
   .then(data => {
-    serverData = { busySlots: {} };
+    serverData={ busySlots: {} };
 
     data.forEach(b => {
-      const date = b.date; // YYYY-MM-DD
-      const table = String(b.tableNumber); // всегда строка
+      const date=b.date;
+      const table=String(b.tableNumber); // всегда строка
 
-      if (!serverData.busySlots[date]) serverData.busySlots[date] = {};
-      if (!serverData.busySlots[date][table]) serverData.busySlots[date][table] = [];
+      if (!serverData.busySlots[date]) serverData.busySlots[date]={};
+      if (!serverData.busySlots[date][table]) serverData.busySlots[date][table]=[];
 
       serverData.busySlots[date][table].push({
         from: b.fromTime,
@@ -458,10 +436,10 @@ fetch("/bookings")
 //   .then(response => {
 //     console.log( response);
 //     if (response.success) {
-//       bookingModal.style.display = "none";
-//       overlay.style.display = "none";
-//       confirmText.textContent = `Столик ${data.table} забронирован`;
-//       confirmModal.style.display = "block";
+//       bookingModal.style.display="none";
+//       overlay.style.display="none";
+//       confirmText.textContent=`Столик ${data.table} забронирован`;
+//       confirmModal.style.display="block";
 
 //     } else {
 //       alert("saving er. " + (response.message || "nothing for you"));
@@ -474,22 +452,22 @@ fetch("/bookings")
 // }
 
 
-// let serverData = { busyTables: [], busySlots: {} };
+// let serverData={ busyTables: [], busySlots: {} };
 
 // fetch("/copen2/copen/load.php")
 //   .then(res => res.json())
 //   .then(data => {
-//     serverData = data;
+//     serverData=data;
 //     });
-const mysql = require('mysql2');
+const mysql=require('mysql2');
 
-const pool = mysql.createPool({
+const pool=mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
   waitForConnections: true,
-  connectionLimit: 10,   // сколько соединений одновременно
+  connectionLimit: 10,
   queueLimit: 0
 });
 
@@ -551,7 +529,7 @@ pool.query('SELECT * FROM bookings', (err, results) => {
 </div>
     
 <script>
-  const day = [
+  const day=[
     "MON 12:00-23:00",
     "TUE 12:00-23:00",
     "WED 12:00-23:00",
@@ -561,33 +539,32 @@ pool.query('SELECT * FROM bookings', (err, results) => {
     "SUN 14:00-23:00"
   ];
 
-  const today = new Date().getDay();
-  const schindex = today === 0 ? 6 : today - 1;
+  const today=new Date().getDay();
+  const schindex=today === 0 ? 6 : today - 1;
 
-  const footerDay = document.getElementById("footer-day");
-  const modal = document.getElementById("schblock");
-  const closeBtn = document.getElementById("close-block");
+  const footerDay=document.getElementById("footer-day");
+  const modal=document.getElementById("schblock");
+  const closeBtn=document.getElementById("close-block");
 
-  footerDay.textContent = day[schindex];
+  footerDay.textContent=day[schindex];
 
   footerDay.addEventListener("click", () => {
-    modal.style.display = "flex";
+    modal.style.display="flex";
   });
 
   closeBtn.addEventListener("click", (e) => {
     e.stopPropagation();
-    modal.style.display = "none";
+    modal.style.display="none";
   });
 
   modal.addEventListener("click", (e) => {
     if (e.target === modal) {
-      modal.style.display = "none";
+      modal.style.display="none";
     }
   });
 
 </script>
 <script>
-  // раньше было save.php
 fetch("/book", {
     method: "POST",
     headers: {"Content-Type":"application/json"},
@@ -619,6 +596,131 @@ fetch("/bookings")
         serverData.busySlots[b.date][b.tableNumber].push({from:b.fromTime,to:b.toTime});
     });
 });
+
+</script>
+<!-- события мыши и клавы -->
+<script>
+const restaurantTables=document.querySelectorAll(".tables-row, .tables-row-top, .duo, .four-table img");
+
+restaurantTables.forEach(table => {
+  table.style.transition="transform 0.2s ease, filter 0.2s ease";
+
+  table.addEventListener("mouseenter", () => {
+    table.style.transform=table.style.transform ? `${table.style.transform} scale(1.08)` : "scale(1.08)";
+    table.style.filter="drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.3))";
+  });
+
+  table.addEventListener("mouseleave", () => {
+    if (table.classList.contains("tables-row-top")) {
+      table.style.transform="rotate(270deg)";
+    } else if (table.classList.contains("tables-row") || table.classList.contains("duo")) {
+      table.style.transform="rotate(90deg)";
+    } else {
+      table.style.transform="none";
+    }
+    table.style.filter="none";
+  });
+});
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    const allModals=[
+      document.getElementById("modal"),
+      document.getElementById("infoModal"),
+      document.getElementById("bookingModal"),
+      document.getElementById("confirmModal"),
+      document.getElementById("schblock")
+    ];
+
+    allModals.forEach(modalElement => {
+      if (modalElement) modalElement.style.display="none";
+    });
+
+    const backgroundOverlay=document.getElementById("overlay");
+    if (backgroundOverlay) {
+      backgroundOverlay.style.display="none";
+      backgroundOverlay.style.pointerEvents="none";
+    }
+  }
+})
+
+window.addEventListener("keydown", (event) => {
+  const mainModal=document.getElementById("modal");
+  
+  if (mainModal && mainModal.style.display === "block") {
+    const dayItems=Array.from(document.querySelectorAll(".day-item"));
+    const activeIndex=dayItems.findIndex(item => item.classList.contains("selected"));
+    
+    if (activeIndex === -1) return;
+
+    let targetIndex=activeIndex;
+
+    if (event.key === "ArrowRight") {
+      targetIndex=(activeIndex + 1) % dayItems.length; // вперед
+    } else if (event.key === "ArrowLeft") {
+      targetIndex=(activeIndex - 1 + dayItems.length) % dayItems.length; // назад
+    }
+
+    if (targetIndex !== activeIndex) {
+      event.preventDefault()
+      dayItems[targetIndex].click()
+    }
+  }
+})
+
+const tableTooltip=document.createElement("div");
+tableTooltip.style.cssText=`
+  position: fixed;
+  background-color: #201f1f;
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+  pointer-events: none;
+  display: none;
+  z-index: 100000;
+  font-family: sans-serif;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+`;
+document.body.appendChild(tableTooltip);
+
+restaurantTables.forEach(table => {
+  table.addEventListener("mouseenter", () => {
+    tableTooltip.textContent=`Столик № ${table.dataset.table}`;
+    tableTooltip.style.display="block";
+  });
+
+  table.addEventListener("mousemove", (e) => {
+    tableTooltip.style.left=`${e.clientX + 15}px`;
+    tableTooltip.style.top=`${e.clientY + 15}px`;
+  });
+
+  table.addEventListener("mouseleave", () => {
+    tableTooltip.style.display="none";
+  });
+});
+
+const userBookingForm = document.getElementById("bookingForm");
+
+if (userBookingForm) {
+  userBookingForm.addEventListener("keydown", (event) => {
+    // Проверяем одновременное нажатие Enter и Ctrl/Cmd
+    if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+      event.preventDefault(); // Предотвращаем обычный перенос строки в поле
+
+      // Если обязательные поля (Имя, Телефон) заполнены правильно
+      if (userBookingForm.checkValidity()) {
+        userBookingForm.requestSubmit(); // Вызываем системный сабмит вашей формы
+      } else {
+        userBookingForm.reportValidity(); // Просим пользователя дозаполнить поля
+      }
+    }
+  });
+}
+
+
+
+
 
 </script>
     
