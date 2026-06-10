@@ -333,7 +333,6 @@ function openTableModal(table) {
   });
 }
 
-// Привязка кликов к столикам
 document.querySelectorAll(".tables-row, .tables-row-top, .duo, .four-table img")
   .forEach(img => img.addEventListener("click", () => openTableModal(img.dataset.table)));
 
@@ -379,19 +378,15 @@ document.querySelectorAll(".tables-row, .tables-row-top, .duo, .four-table img")
 //   submitBooking(formData);
 // };
 
-// Обработчик отправки формы бронирования
 bookingForm.onsubmit = function (e) {
-  e.preventDefault(); // Отменяем перезагрузку страницы
+  e.preventDefault()
 
-  // 1. Скрываем окно ввода данных и фоновый оверлей
   bookingModal.style.display = "none";
   overlay.style.display = "none";
 
-  // 2. Устанавливаем текст и показываем модалку подтверждения
   confirmText.textContent = "Форма отправлена";
   confirmModal.style.display = "block";
 
-  // 3. Сбрасываем введенные пользователем данные в форме
   this.reset();
 };
 
@@ -471,7 +466,6 @@ const pool=mysql.createPool({
   queueLimit: 0
 });
 
-// Для запросов
 pool.query('SELECT * FROM bookings', (err, results) => {
   if (err) throw err;
   console.log(results);
@@ -704,15 +698,13 @@ const userBookingForm = document.getElementById("bookingForm");
 
 if (userBookingForm) {
   userBookingForm.addEventListener("keydown", (event) => {
-    // Проверяем одновременное нажатие Enter и Ctrl/Cmd
     if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
-      event.preventDefault(); // Предотвращаем обычный перенос строки в поле
+      event.preventDefault(); 
 
-      // Если обязательные поля (Имя, Телефон) заполнены правильно
       if (userBookingForm.checkValidity()) {
-        userBookingForm.requestSubmit(); // Вызываем системный сабмит вашей формы
+        userBookingForm.requestSubmit();
       } else {
-        userBookingForm.reportValidity(); // Просим пользователя дозаполнить поля
+        userBookingForm.reportValidity(); 
       }
     }
   });
